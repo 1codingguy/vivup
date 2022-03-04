@@ -23,3 +23,17 @@ cartItems: state.cartItems.map(x =>
 
 Checkout page currency under "Subtotal" is GBP sign, while the products are in $ sign?
 
+# Bug_3: There is a bug with removing products form the cart - the button does not work;
+
+- It must have something to do with `removeItemHandler()` in `CheckoutScreen.js`
+- first console.log something out to see if behaviour is correct
+- `id` is passed into `removeItemHandler()` correctly 
+- so it must be the `removeItem()` in `cartAction.js` => reducer logic
+- console log the payload to check if id is passed correctly = correct
+- `x.product` should be `x.id`
+- after changing the above line it behaves correctly
+
+
+
+
+
