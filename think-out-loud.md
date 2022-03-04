@@ -55,4 +55,10 @@ Checkout page currency under "Subtotal" is GBP sign, while the products are in $
 2. their quantity
 Does it mean there are two different things to display? But it's weird to have two things displayed next the cart logo, usually it's only a number like my implementation. Am I understanding the feature correctly?
 
+# Feature 2: Add validations to the billing page:
+1. The phone number needs to match a regex;
+2. The zip code needs to follow a regex;
+- not sure are "match a regex" equivalent to "follow a regex", but I supposed they both mean the input has to match a pattern.
+- add `pattern` attribute to validate the input
+- zip code type was "number", but in order to match a regex, the input type has to be password, text or tel according to mozilla 
 
