@@ -68,3 +68,26 @@ Does it mean there are two different things to display? But it's weird to have t
 - so I should check the `cartItems` when the `BillingScreen` just mount by useEffect() with empty dependency array
 - display an alert and direct user back to homepage so the billing page is not accessible
 
+# Feature 4: display country in a select with its flag
+> For the country input in the billing page, display them in a select and get all the options by making an async request at: https://restcountries.com/v3.1/all. The options need to contain the country flag and common name.
+
+- async fetch function call to the API
+- should only call the async fetch function when the `BillingScreen` mounts, so this function call is inside the existing useEffect()
+- length of returned array is 250
+  - `object.name.common` - gets the name
+  - `object.flags.svg` - gets the flag image url
+- after fetching the data, retain only the name and flag
+- sort the country by name, then assign to `countriesData` variable
+
+But how to insert the flag inline with the country name?
+
+react-select?
+https://stackoverflow.com/questions/45940726/populate-react-select-with-image
+
+MUI select?
+
+- Now check if the form after submit contains the name of the country with the current code
+  - OK, valid
+  - But 'select a country' option is also valid??
+
+
