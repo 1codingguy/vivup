@@ -15,7 +15,7 @@ const Paginate = ({currentPage, setCurrentPage, products, productsPerPage}) => {
   return (
       <Pagination>
         {pageNumbers.map((x) => (
-          <div className='mx-2' onClick={(e) => handleClick(e)}>
+          <div key={`page-${x}`} className='mx-2' onClick={(e) => handleClick(e)}>
             <Pagination.Item active={x === currentPage}>{x}</Pagination.Item>
           </div>
         ))}

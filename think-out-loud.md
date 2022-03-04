@@ -33,6 +33,11 @@ Checkout page currency under "Subtotal" is GBP sign, while the products are in $
 - `x.product` should be `x.id`
 - after changing the above line it behaves correctly
 
+# Bug 4: Fix the warnings you get in the console and in the terminal.
+- console says "Check the render method of `Paginate`"
+- so must be a `map()` in `Paginate` without a key
+- should not use index or simple number, ideally an uuid to ensure its uniqueness
+- but in this case `page-${x}` would suffice since it's a small app, adding a uuid library seems like an overkill
 
 
 
