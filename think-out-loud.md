@@ -39,6 +39,20 @@ Checkout page currency under "Subtotal" is GBP sign, while the products are in $
 - should not use index or simple number, ideally an uuid to ensure its uniqueness
 - but in this case `page-${x}` would suffice since it's a small app, adding a uuid library seems like an overkill
 
+# Feature_1: Make the cart label (in the top right part of the page) reflect the number of items and their quantity in the cart;
+- check the code in header component
+- reuse `cartItems.reduce()` from `CheckoutScreen.js`
+- ideally refactor it out, but first test it things work correctly, then think about refactoring later
+- what in React-bootstrap gives a round container for the number of items, same as "badge" in MUI?
+- turn out there's also a "badge" component in React-bootstrap
+- from docs - `pills` make badges more round - which is what I want
+  - But it seems there's no option to place the badge on the top right corner of the icon like in MUI
+  - for now just put the badge next to the word "cart", since there should be a space between the word "cart" and the badge, insert {` `} after "Cart"
+- It works, but again, ideally the `cartItems.reduce()` can be refactored out
 
+* On a second thought when I read the wording of this feature: it says 
+1. reflect the number of items AND
+2. their quantity
+Does it mean there are two different things to display? But it's weird to have two things displayed next the cart logo, usually it's only a number like my implementation. Am I understanding the feature correctly?
 
 
