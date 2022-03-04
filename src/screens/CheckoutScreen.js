@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import { removeItem, addToCart } from '../actions/cartActions'
@@ -7,15 +7,15 @@ import { removeItem, addToCart } from '../actions/cartActions'
 const CheckoutScreen = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { cartItems } = useSelector((state) => state.cart)
+  const { cartItems } = useSelector(state => state.cart)
 
-  const removeItemHandler = (id) => {
+  const removeItemHandler = id => {
     dispatch(removeItem(id))
   }
 
   const checkoutHandler = () => {
-    navigate('/billing');
-  };
+    navigate('/billing')
+  }
 
   return (
     <Row className='py-3'>
@@ -33,21 +33,17 @@ const CheckoutScreen = () => {
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
-                    {item.name}
-                  </Col>
+                  <Col md={3}>{item.name}</Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
                     <Form.Control
                       as='select'
                       value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item, Number(e.target.value))
-                        )
+                      onChange={e =>
+                        dispatch(addToCart(item, Number(e.target.value)))
                       }
                     >
-                      {[1, 2, 3, 4, 5].map((x) => (
+                      {[1, 2, 3, 4, 5].map(x => (
                         <option key={x} value={x}>
                           {x}
                         </option>
