@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const BillingScreen = () => {
   const navigate = useNavigate()
+  const { cartItems } = useSelector(state => state.cart)
 
   const [validated, setValidated] = useState(false)
   const [name, setName] = useState('')
@@ -26,6 +28,13 @@ const BillingScreen = () => {
     setValidated(false)
     navigate('/confirm')
   }
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      alert('Cart it empty, click OK to go to home page')
+      navigate('/')
+    }
+  }, [])
 
   return (
     <Container>

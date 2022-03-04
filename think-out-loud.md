@@ -62,3 +62,9 @@ Does it mean there are two different things to display? But it's weird to have t
 - add `pattern` attribute to validate the input
 - zip code type was "number", but in order to match a regex, the input type has to be password, text or tel according to mozilla 
 
+# Feature 3: Make sure the billing page is accessible only if there are items in the cart:
+- in normal usage, if the cart is empty, the next button is disabled and therefore can't process forward to the billing page
+- so this feature is for the case of typing '/billing' path in the url
+- so I should check the `cartItems` when the `BillingScreen` just mount by useEffect() with empty dependency array
+- display an alert and direct user back to homepage so the billing page is not accessible
+
