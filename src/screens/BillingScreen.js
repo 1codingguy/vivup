@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 const BillingScreen = () => {
   const navigate = useNavigate()
   const { cartItems } = useSelector(state => state.cart)
+  const [countriesData, setCountriesData] = useState([])
 
   const [validated, setValidated] = useState(false)
   const [name, setName] = useState('')
@@ -29,11 +30,33 @@ const BillingScreen = () => {
     navigate('/confirm')
   }
 
+  const fetchCountries = async () => {
+    const response = await fetch('https://restcountries.com/v3.1/all')
+    const rawData = await response.json()
+    const processedData = rawData
+      .map(country => {
+        return { country: country.name.common, flag: country.flags.png }
+      })
+      .sort((a, b) => {
+        if (a.country < b.country) {
+          return -1
+        }
+        if (a.country > b.country) {
+          return 1
+        }
+        return 0
+      })
+    setCountriesData(processedData)
+  }
+
   useEffect(() => {
     if (cartItems.length === 0) {
       alert('Cart it empty, click OK to go to home page')
       navigate('/')
+      return
     }
+
+    fetchCountries()
   }, [])
 
   return (
@@ -84,19 +107,40 @@ const BillingScreen = () => {
                 Please provide a valid phone number
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group controlId='country'>
               <Form.Label>Country</Form.Label>
-              <Form.Control
+
+              {/* <Form.Control
                 type='text'
                 placeholder='Enter country'
-                value={country}
+                value={country} 
                 required
                 onChange={e => setCountry(e.target.value)}
-              ></Form.Control>
+              ></Form.Control> */}
+
+              <Form.Select aria-label='list of countries'>
+                <option>Select a country</option>
+                {countriesData &&
+                  countriesData.map(country => {
+                    return (
+                      <option
+                        data-subtext={`<img src="${country.flag}">`}
+                        key={country.country}
+                        value={country.country}
+                      >
+                        {country.country}
+                        {/* <img src={country.flag} alt="" /> */}
+                      </option>
+                    )
+                  })}
+              </Form.Select>
+
               <Form.Control.Feedback type='invalid'>
                 Please provide a valid country
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group controlId='city'>
               <Form.Label>City</Form.Label>
               <Form.Control
