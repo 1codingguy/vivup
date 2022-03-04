@@ -8,6 +8,7 @@ export const addToCart = (item, qty) => (dispatch) => {
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
+      id: item.id,
       image: item.image,
       name: item.name,
       price: item.price,
