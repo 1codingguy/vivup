@@ -86,8 +86,14 @@ https://stackoverflow.com/questions/45940726/populate-react-select-with-image
 
 MUI select?
 
-- Now check if the form after submit contains the name of the country with the current code
-  - OK, valid
-  - But 'select a country' option is also valid??
+## alternative solution: display the flag on the same line as "country" label
+
+- Forgot how to get a 'placeholder' for drop down menu
+  - `<option value='' disabled hidden> Placeholder </option>` 
+    - `value=''` - empty value doesn't pass validation
+    - https://stackoverflow.com/questions/25321180/how-do-you-set-up-a-required-select-without-a-default-value-selected
+    - `disabled` - A disabled option is unusable and un-clickable
+    - `hidden` - When present, it specifies that an element is not yet, or is no longer, relevant.
+
 
 

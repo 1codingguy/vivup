@@ -109,33 +109,39 @@ const BillingScreen = () => {
             </Form.Group>
 
             <Form.Group controlId='country'>
-              <Form.Label>Country</Form.Label>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Form.Label>Country</Form.Label>
 
-              {/* <Form.Control
-                type='text'
-                placeholder='Enter country'
-                value={country} 
-                required
+                {/* display a flag if a country is selected */}
+                {country &&
+                  countriesData.map(data => {
+                    if (country === data.country) {
+                      return (
+                        <img
+                          src={data.flag}
+                          style={{ height: '1rem', marginTop: '4px' }}
+                          alt={`flag of ${country}`}
+                          key={`flag of ${country}`}
+                        />
+                      )
+                    }
+                  })}
+              </div>
+
+              <Form.Select
+                aria-label='list of countries'
                 onChange={e => setCountry(e.target.value)}
-              ></Form.Control> */}
-
-              <Form.Select aria-label='list of countries'>
-                <option defaultValue='' disabled selected hidden>
+                name='country'
+                value={country}
+                required
+              >
+                <option disabled hidden value=''>
                   Select a country
                 </option>
                 {countriesData &&
                   countriesData.map(country => {
                     return (
-                      <option
-                        data-subtext={`<img src="${country.flag}">`}
-                        key={country.country}
-                        value={country}
-                        required
-                        onChange={e => setCountry(e.target.value)}
-                      >
-                        {country.country}
-                        {/* <img src={country.flag} alt="" /> */}
-                      </option>
+                      <option key={country.country}>{country.country}</option>
                     )
                   })}
               </Form.Select>
