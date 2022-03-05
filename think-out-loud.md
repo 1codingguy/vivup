@@ -94,6 +94,9 @@ MUI select?
     - https://stackoverflow.com/questions/25321180/how-do-you-set-up-a-required-select-without-a-default-value-selected
     - `disabled` - A disabled option is unusable and un-clickable
     - `hidden` - When present, it specifies that an element is not yet, or is no longer, relevant.
+- I should add a try...catch block in fetchCountries()
 
 
-
+# The quantity button is having weird bahaviour
+- there's only options of number 1-5
+- and the value displayed doesn't reflect the updated number of that item after clicking

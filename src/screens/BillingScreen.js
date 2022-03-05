@@ -31,22 +31,26 @@ const BillingScreen = () => {
   }
 
   const fetchCountries = async () => {
-    const response = await fetch('https://restcountries.com/v3.1/all')
-    const rawData = await response.json()
-    const processedData = rawData
-      .map(country => {
-        return { country: country.name.common, flag: country.flags.png }
-      })
-      .sort((a, b) => {
-        if (a.country < b.country) {
-          return -1
-        }
-        if (a.country > b.country) {
-          return 1
-        }
-        return 0
-      })
-    setCountriesData(processedData)
+    try {
+      const response = await fetch('https://restcountries.com/v3.1/all')
+      const rawData = await response.json()
+      const processedData = rawData
+        .map(country => {
+          return { country: country.name.common, flag: country.flags.png }
+        })
+        .sort((a, b) => {
+          if (a.country < b.country) {
+            return -1
+          }
+          if (a.country > b.country) {
+            return 1
+          }
+          return 0
+        })
+      setCountriesData(processedData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
