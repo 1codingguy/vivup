@@ -96,7 +96,28 @@ MUI select?
     - `hidden` - When present, it specifies that an element is not yet, or is no longer, relevant.
 - I should add a try...catch block in fetchCountries()
 
+## MUI
+- Unsure if need to use `Select` from MUI, test not using it first
+- components of interest here are:
+  - MenuItem
+    - ListItemIcon
+    - ListItemText
+
+
+## Try before pseudo element
+How to pass the URL dynamically?
+Should I use styled-component?
+adjust the size and position using rem?
+
+Pass dynamic url to css, problems:
+- `url( attr() )` doesn't work
+
+## then use styled-component? How does styled-component pass argument from html/ jsx?
+props
 
 # The quantity button is having weird bahaviour
 - there's only options of number 1-5
 - and the value displayed doesn't reflect the updated number of that item after clicking
+
+
+

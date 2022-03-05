@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import './BillingScreen.css'
 
 const BillingScreen = () => {
   const navigate = useNavigate()
@@ -54,11 +55,11 @@ const BillingScreen = () => {
   }
 
   useEffect(() => {
-    if (cartItems.length === 0) {
-      alert('Cart it empty, click OK to go to home page')
-      navigate('/')
-      return
-    }
+    // if (cartItems.length === 0) {
+    //   alert('Cart it empty, click OK to go to home page')
+    //   navigate('/')
+    //   return
+    // }
 
     fetchCountries()
   }, [])
@@ -117,7 +118,7 @@ const BillingScreen = () => {
                 <Form.Label>Country</Form.Label>
 
                 {/* display a flag if a country is selected */}
-                {country &&
+                {/* {country &&
                   countriesData.map(data => {
                     if (country === data.country) {
                       return (
@@ -129,26 +130,27 @@ const BillingScreen = () => {
                         />
                       )
                     }
-                  })}
+                  })} */}
               </div>
-
-              <Form.Select
-                aria-label='list of countries'
-                onChange={e => setCountry(e.target.value)}
-                name='country'
-                value={country}
-                required
-              >
-                <option disabled hidden value=''>
-                  Select a country
-                </option>
-                {countriesData &&
-                  countriesData.map(country => {
-                    return (
-                      <option key={country.country}>{country.country}</option>
-                    )
-                  })}
-              </Form.Select>
+              <div className='select-wrapper'>
+                <Form.Select
+                  aria-label='list of countries'
+                  onChange={e => setCountry(e.target.value)}
+                  name='country'
+                  value={country}
+                  required
+                >
+                  <option disabled hidden value=''>
+                    Select a country
+                  </option>
+                  {countriesData &&
+                    countriesData.map(country => {
+                      return (
+                        <option key={country.country}>{country.country}</option>
+                      )
+                    })}
+                </Form.Select>
+              </div>
 
               <Form.Control.Feedback type='invalid'>
                 Please provide a valid country
