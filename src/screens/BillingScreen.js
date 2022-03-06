@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Dropdown,
+  DropdownButton,
+} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import './BillingScreen.css'
@@ -8,6 +16,7 @@ const BillingScreen = () => {
   const navigate = useNavigate()
   const { cartItems } = useSelector(state => state.cart)
   const [countriesData, setCountriesData] = useState([])
+  const [dropdownToggle, setDropdownToggle] = useState('Select a country')
 
   const [validated, setValidated] = useState(false)
   const [name, setName] = useState('')
@@ -22,6 +31,9 @@ const BillingScreen = () => {
     e.preventDefault()
 
     const form = e.currentTarget
+
+    console.log(form)
+
     if (form.checkValidity() === false) {
       e.stopPropagation()
       setValidated(true)
@@ -63,6 +75,12 @@ const BillingScreen = () => {
 
     fetchCountries()
   }, [])
+
+  const handleSelect = eventKey => {
+    console.log('eventKey is', eventKey)
+    setDropdownToggle(eventKey)
+    setCountry(eventKey)
+  }
 
   return (
     <Container>
@@ -114,43 +132,30 @@ const BillingScreen = () => {
             </Form.Group>
 
             <Form.Group controlId='country'>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Form.Label>Country</Form.Label>
+              <Form.Label>Country</Form.Label>
+              {/* <Form.Control>
 
-                {/* display a flag if a country is selected */}
-                {/* {country &&
-                  countriesData.map(data => {
-                    if (country === data.country) {
-                      return (
-                        <img
-                          src={data.flag}
-                          style={{ height: '1rem', marginTop: '4px' }}
-                          alt={`flag of ${country}`}
-                          key={`flag of ${country}`}
-                        />
-                      )
-                    }
-                  })} */}
-              </div>
-              <div className='select-wrapper'>
-                <Form.Select
-                  aria-label='list of countries'
-                  onChange={e => setCountry(e.target.value)}
-                  name='country'
-                  value={country}
-                  required
-                >
-                  <option disabled hidden value=''>
-                    Select a country
-                  </option>
-                  {countriesData &&
-                    countriesData.map(country => {
-                      return (
-                        <option key={country.country}>{country.country}</option>
-                      )
-                    })}
-                </Form.Select>
-              </div>
+              </Form.Control> */}
+              <Dropdown onSelect={eventKey => handleSelect(eventKey)}>
+                <DropdownButton title={dropdownToggle} variant='transparent'>
+                  <Dropdown.Item eventKey='Australia'>
+                    Australia
+                    <img
+                      width={'10%'}
+                      src={'https://flagcdn.com/w320/au.png'}
+                      alt={''}
+                    />
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey='Bahrain'>
+                    Bahrain
+                    <img
+                      width={'10%'}
+                      src={'https://flagcdn.com/w320/bh.png'}
+                      alt={''}
+                    />
+                  </Dropdown.Item>
+                </DropdownButton>
+              </Dropdown>
 
               <Form.Control.Feedback type='invalid'>
                 Please provide a valid country

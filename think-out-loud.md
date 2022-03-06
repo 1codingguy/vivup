@@ -68,6 +68,15 @@ Does it mean there are two different things to display? But it's weird to have t
 - so I should check the `cartItems` when the `BillingScreen` just mount by useEffect() with empty dependency array
 - display an alert and direct user back to homepage so the billing page is not accessible
 
+---
+
+# The quantity button is having weird bahaviour
+- there's only options of number 1-5
+- and the value displayed doesn't reflect the updated number of that item after clicking
+
+
+---
+
 # Feature 4: display country in a select with its flag
 > For the country input in the billing page, display them in a select and get all the options by making an async request at: https://restcountries.com/v3.1/all. The options need to contain the country flag and common name.
 
@@ -112,12 +121,56 @@ adjust the size and position using rem?
 Pass dynamic url to css, problems:
 - `url( attr() )` doesn't work
 
+### add a wrapper around <select> tag
+- wrapper = position: relative
+- select = position: absolute
+- Then add a before pseudo element and adjust the position within the select box
+  - But not every option has a flag next to it, only the selected country has a flag in the box. 
+  - Not sure if this is the requirement? 
+    > "The options need to contain the country flag and common name."
+    - meaning every one option needs a name and a flag to display?
+
+### what about add a wrapper around each <option> tag?
+- adding a wrapper around each <option> tag means the wrapper element will be children of <select> element
+- but "only Zero or more <option> or <optgroup> elements" are permitted content under <select> element.
+  - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+- also, <option> styling is very limited
+  > " For example, Firefox will apply color and background-color when set on the <option> elements, Chrome won't. Neither of them will apply any kind of spacing (e.g. padding). "
+  > "If you really need full control over the option styling, you'll have to either use some kind of library to generate a custom control, or build your own custom control"
+  - https://developer.mozilla.org/en-US/docs/Learn/Forms/Advanced_form_styling
+  
+
 ## then use styled-component? How does styled-component pass argument from html/ jsx?
 props
 
-# The quantity button is having weird bahaviour
-- there's only options of number 1-5
-- and the value displayed doesn't reflect the updated number of that item after clicking
+## Try react-bootstrap dropdown
+https://stackoverflow.com/questions/60814704/flags-inside-a-react-bootstrap-select-option-renders-as-object-object
+
+- After submitting the form, how does the form object look like again? console log to find out
+- what about validation of the dropdown manu?
 
 
+### correct styling parameters applied in dev-tool
 
+`.dropdown` <div> 
+- border: 1px solid #ced4da;
+
+<button className='dropdown-toggle'>:
+- width: 100%;
+- text-align: left;
+- position: relative; 
+
+The dropdown button
+button.dropdown-toggle.btn.btn-transparent::after {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+dropdown-menu
+width: 100%
+
+
+So styling seems ok, needs to deal with 
+- inserting a flag 
+- passing the value from the menu to state variable
+- value validation

@@ -1,16 +1,28 @@
-.select-wrapper{
+.dropdown:nth-child(2) {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  text-align: left;
   position: relative;
 }
 
-.select-wrapper::before {
-    content: "something";
-    color: transparent;
-    /* font-size: 20px; */
-    background-image: url(https://flagcdn.com/w320/au.png);
-    background-size: 70%;
-    background-repeat: no-repeat;
-    height: 50px;
-    position: absolute;
-    right: 35px;
-    top: 0.375rem;
+button.dropdown-toggle.btn.btn-transparent::after {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }
+
+.dropdown-menu {
+  width: 100%;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+
