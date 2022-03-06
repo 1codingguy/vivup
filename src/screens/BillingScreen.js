@@ -34,7 +34,7 @@ const BillingScreen = () => {
 
     console.log(form)
 
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false || dropdownToggle === 'Select a country') {
       e.stopPropagation()
       setValidated(true)
       return
@@ -133,10 +133,15 @@ const BillingScreen = () => {
 
             <Form.Group controlId='country'>
               <Form.Label>Country</Form.Label>
-              {/* <Form.Control>
 
-              </Form.Control> */}
-              <Dropdown onSelect={eventKey => handleSelect(eventKey)}>
+              <Dropdown
+                onSelect={eventKey => handleSelect(eventKey)}
+                className={
+                  dropdownToggle !== 'Select a country'
+                    ? 'valid-country-boarder'
+                    : 'invalid-country-boarder'
+                }
+              >
                 <DropdownButton title={dropdownToggle} variant='transparent'>
                   <Dropdown.Item eventKey='Australia'>
                     Australia
@@ -157,7 +162,14 @@ const BillingScreen = () => {
                 </DropdownButton>
               </Dropdown>
 
-              <Form.Control.Feedback type='invalid'>
+              <Form.Control.Feedback
+                type='invalid'
+                className={
+                  dropdownToggle === 'Select a country'
+                    ? 'invalid-country-warning'
+                    : null
+                }
+              >
                 Please provide a valid country
               </Form.Control.Feedback>
             </Form.Group>

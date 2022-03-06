@@ -150,27 +150,36 @@ https://stackoverflow.com/questions/60814704/flags-inside-a-react-bootstrap-sele
 - what about validation of the dropdown manu?
 
 
-### correct styling parameters applied in dev-tool
-
-`.dropdown` <div> 
-- border: 1px solid #ced4da;
-
-<button className='dropdown-toggle'>:
-- width: 100%;
-- text-align: left;
-- position: relative; 
-
-The dropdown button
-button.dropdown-toggle.btn.btn-transparent::after {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-
-dropdown-menu
-width: 100%
-
 
 So styling seems ok, needs to deal with 
-- inserting a flag 
-- passing the value from the menu to state variable
+- inserting a flag  - OK
+- passing the value from the menu to state variable - OK
 - value validation
+
+How does form validation work in react bootstrap?
+- there's a `.was-validated` class in the form after submit
+- use this class combine with className to display css attribute
+```
+  className={
+    dropdownToggle !== 'Select a country'
+      ? 'valid-country-boarder'
+      : 'invalid-country-boarder'
+  }
+```
+  - if the form was submitted (was-validated), and the value in the form (get from state variable) is "select the country", then it is invalid - the last part is shown in the code block above
+  - if valid:
+    - display a green border color
+  - if invalid:
+    - display a red border color
+    - display the warning message
+
+There's also a check mark and an exclamation mark SVG for valid and invalid case, but for unknown reason if include that in CSS it compiles forever. Also the position of SVG overlaps with the toggle downward arrow button. So comment those part out for now.
+- I reckon a green and red border is enough to display if that field is validated?
+
+Now: Press Next button, even if country is invalid, it still navigate to next page
+- the logic to stop navigating to next page is:
+`if (form.checkValidity() === false {e.stopPropagation()}` 
+- check if the `dropdownToggle === 'Select a country'` (default value), if yes it should stop propagation as well
+
+### valid phone number 
++1 11 111 11
