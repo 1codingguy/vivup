@@ -16,7 +16,7 @@ const BillingScreen = () => {
   const navigate = useNavigate()
   const { cartItems } = useSelector(state => state.cart)
   const [countriesData, setCountriesData] = useState([])
-  const [dropdownToggle, setDropdownToggle] = useState('Select a country')
+  const [dropdownValue, setDropdownValue] = useState('Select a country')
 
   const [validated, setValidated] = useState(false)
   const [name, setName] = useState('')
@@ -29,12 +29,11 @@ const BillingScreen = () => {
 
   const submitHandler = e => {
     e.preventDefault()
-
     const form = e.currentTarget
-
-    console.log(form)
-
-    if (form.checkValidity() === false || dropdownToggle === 'Select a country') {
+    if (
+      form.checkValidity() === false ||
+      dropdownValue === 'Select a country'
+    ) {
       e.stopPropagation()
       setValidated(true)
       return
@@ -51,15 +50,7 @@ const BillingScreen = () => {
         .map(country => {
           return { country: country.name.common, flag: country.flags.png }
         })
-        .sort((a, b) => {
-          if (a.country < b.country) {
-            return -1
-          }
-          if (a.country > b.country) {
-            return 1
-          }
-          return 0
-        })
+        .sort((a, b) => a.country.localeCompare(b.country))
       setCountriesData(processedData)
     } catch (error) {
       console.log(error)
@@ -67,18 +58,17 @@ const BillingScreen = () => {
   }
 
   useEffect(() => {
-    // if (cartItems.length === 0) {
-    //   alert('Cart it empty, click OK to go to home page')
-    //   navigate('/')
-    //   return
-    // }
+    if (cartItems.length === 0) {
+      alert('Cart it empty, click OK to go to home page')
+      navigate('/')
+      return
+    }
 
     fetchCountries()
   }, [])
 
   const handleSelect = eventKey => {
-    console.log('eventKey is', eventKey)
-    setDropdownToggle(eventKey)
+    setDropdownValue(eventKey)
     setCountry(eventKey)
   }
 
@@ -137,35 +127,53 @@ const BillingScreen = () => {
               <Dropdown
                 onSelect={eventKey => handleSelect(eventKey)}
                 className={
-                  dropdownToggle !== 'Select a country'
+                  dropdownValue !== 'Select a country'
                     ? 'valid-country-boarder'
                     : 'invalid-country-boarder'
                 }
               >
-                <DropdownButton title={dropdownToggle} variant='transparent'>
-                  <Dropdown.Item eventKey='Australia'>
-                    Australia
-                    <img
-                      width={'10%'}
-                      src={'https://flagcdn.com/w320/au.png'}
-                      alt={''}
-                    />
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey='Bahrain'>
-                    Bahrain
-                    <img
-                      width={'10%'}
-                      src={'https://flagcdn.com/w320/bh.png'}
-                      alt={''}
-                    />
-                  </Dropdown.Item>
+                <DropdownButton
+                  title={
+                    <div>
+                      {country && (
+                        <img
+                          style={{ paddingRight: '0.5rem' }}
+                          height={'20px'}
+                          src={
+                            countriesData.find(data => data.country === country)
+                              .flag
+                          }
+                          alt={`Flag of selected country`}
+                        />
+                      )}
+                      {dropdownValue}
+                    </div>
+                  }
+                  variant='transparent'
+                >
+                  {countriesData &&
+                    countriesData.map(countryData => {
+                      return (
+                        <Dropdown.Item
+                          key={countryData.country}
+                          eventKey={countryData.country}
+                        >
+                          {countryData.country}
+                          <img
+                            height={'20px'}
+                            src={countryData.flag}
+                            alt={`Flag of ${countryData.country}`}
+                          />
+                        </Dropdown.Item>
+                      )
+                    })}
                 </DropdownButton>
               </Dropdown>
 
               <Form.Control.Feedback
                 type='invalid'
                 className={
-                  dropdownToggle === 'Select a country'
+                  dropdownValue === 'Select a country'
                     ? 'invalid-country-warning'
                     : null
                 }

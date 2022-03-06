@@ -16,8 +16,17 @@ button.dropdown-toggle.btn.btn-transparent::after {
   top: 1rem;
 }
 
+/* if displaying green check mark or red exclamation, shift the dropdown arrow further left  */
+/* .was-validated button.dropdown-toggle.btn.btn-transparent::after {
+  position: absolute;
+  right: 3rem;
+  top: 1rem;
+} */
+
 .dropdown-menu {
   width: 100%;
+  overflow-x: hidden;
+  height: 500%;
 }
 
 .dropdown-item {
