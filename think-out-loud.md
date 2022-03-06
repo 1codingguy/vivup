@@ -185,7 +185,7 @@ There's also a check mark and an exclamation mark SVG for valid and invalid case
 
 - I reckon a green and red border is enough to display if that field is validated?
 
-### Now: Press Next button, even if country is invalid, it still navigate to next page##
+### Press Next button, even if country is invalid, it still navigate to next page??
 - the logic to stop navigating to next page is:
   `if (form.checkValidity() === false {e.stopPropagation()}`
 - check if the `dropdownValue === 'Select a country'` (default value), if yes it should stop propagation as well
@@ -193,5 +193,4 @@ There's also a check mark and an exclamation mark SVG for valid and invalid case
 
 
 ### valid phone number
-
 +1 11 111 11
